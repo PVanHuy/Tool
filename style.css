@@ -1,15 +1,17 @@
-/* Định dạng nền */
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
 #background {
   background: url("./images/background.jpg") center center / cover no-repeat;
   height: 650px;
   width: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Logo và tiêu đề */
 #logock > img {
   height: 100px;
   display: block;
@@ -24,7 +26,6 @@
   font-family: "Times New Roman", Times, serif;
 }
 
-/* Input nhập tiền và thời gian */
 #container {
   display: flex;
   flex-direction: column;
@@ -46,7 +47,7 @@
 }
 
 #ndungck {
-  width: 1000px;
+  width: 50%;
   height: 150px;
   padding: 10px;
   margin: 20px auto;
@@ -55,7 +56,6 @@
   border-radius: 5px;
 }
 
-/* Nút tạo bill */
 #createBill {
   display: block;
   margin: 10px auto;
@@ -66,14 +66,12 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 #createBill:hover {
   background-color: #0056b3;
 }
 
-/* Footer */
 footer {
   text-align: center;
   margin-top: 20px;
@@ -88,13 +86,15 @@ footer {
 .icon-container {
   display: flex;
   justify-content: center;
-  gap: 50px;
+  gap: 20px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .icon-container div {
   text-align: center;
-  cursor: pointer;
+  flex: 1;
+  min-width: 80px;
 }
 
 .icon-container i {
@@ -109,93 +109,78 @@ footer {
   margin-top: 5px;
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
-  #cost, #daytime, #ndungck {
+  #background {
+    height: auto;
+    padding: 20px;
+  }
+
+  #cost,
+  #daytime,
+  #ndungck {
     width: 80%;
   }
 
   .icon-container {
-    gap: 20px;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .icon-container div {
+    flex: none;
+    min-width: auto;
+    padding: 10px;
   }
 }
 
-@media (max-width: 480px) {
-  #background {
-    height: auto;
-    padding: 20px 0;
-  }
-
-  #text {
-    font-size: 1.2em;
-  }
-
-  #cost, #daytime, #ndungck {
-    width: 90%;
-    font-size: 1em;
-  }
-
-  .icon-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-/* Form nhập thông tin */
+/* Form Container Styles */
 #formContainer {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: rgb(171, 77, 77);
   padding: 20px;
-  width: 80%;
-  max-width: 400px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   z-index: 1000;
+  width: 90%;
+  max-width: 400px;
   border-radius: 10px;
   text-align: center;
-}
-
-#formContainer h3 {
-  margin-bottom: 15px;
-  font-size: 1.2em;
 }
 
 #formContainer input {
   width: 90%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid #307ce0;
   border-radius: 5px;
+  font-size: 1em;
 }
 
 #formContainer button {
-  width: 45%;
-  padding: 10px;
-  margin: 10px 2.5%;
-  border: none;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  font-size: 1em;
+  border: 1px solid ;
   border-radius: 5px;
   cursor: pointer;
+  width: 30%;
 }
 
-#confirmBill {
-  background-color: #28a745;
+#formContainer button:first-child {
+  background-color: #007bff;
   color: white;
 }
 
-#confirmBill:hover {
-  background-color: #218838;
+#formContainer button:first-child:hover {
+  background-color: #0056b3;
 }
 
-button[onclick="closeForm()"] {
-  background-color: #dc3545;
-  color: white;
-}
-
-button[onclick="closeForm()"]:hover {
-  background-color: #c82333;
+#formContainer button:last-child {
+  background-color: #ccc;
 }
 
 #overlay {
@@ -207,4 +192,10 @@ button[onclick="closeForm()"]:hover {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+#confirmBill:hover{
+  background: rgb(44, 112, 165);
+}
+#cancleBill:hover{
+  background:rgb(197, 21, 21);
 }
