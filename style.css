@@ -1,0 +1,103 @@
+#background {
+  background: url("./images/background.jpg") center center / cover no-repeat;
+  height: 650px;
+  width: auto;
+}
+
+#logock > img {
+  height: 100px;
+  display: block;
+  margin: 20px auto;
+}
+
+#text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.5em;
+  color: aliceblue;
+  font-family: "Times New Roman", Times, serif;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+#cost,
+#daytime {
+  width: 50%;
+  padding: 10px;
+  font-size: 1.2em;
+  text-align: center;
+  border: none;
+  background: transparent;
+  color: white;
+  outline: none;
+}
+
+#cost {
+  text-align: center;
+}
+
+#ndungck {
+  width: 50%;
+  height: 150px;
+  padding: 10px;
+  margin: 20px auto;
+  font-size: 1.1em;
+  display: block;
+  border-radius: 5px;
+}
+
+#createBill {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#createBill:hover {
+  background-color: #0056b3;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#footer-logo {
+  width: 80px;
+  display: block;
+  margin: 0 auto;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 10px;
+}
+
+.icon-container div {
+  text-align: center;
+}
+
+.icon-container i {
+  font-size: 24px;
+  display: block;
+  color: white;
+}
+
+.icon-container p {
+  font-size: 14px;
+  color: white;
+  margin-top: 5px;
+}

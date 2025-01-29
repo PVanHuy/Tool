@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <title>MB Bank</title>
+    <style>
+      @media print {
+        #createBill {
+          display: none;
+        }
+
+        body {
+          background-color: #f0f0f0;
+          background-image: url("./images/background.jpg");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="background">
+      <header>
+        <div id="logock">
+          <img src="./images/logock.png" alt="Logo" />
+          <div id="text">Chuyển tiền thành công</div>
+          <div id="container">
+            <input
+              type="text"
+              id="cost"
+              placeholder="Nhập số tiền"
+              oninput="formatCurrency(this)"
+            />
+            <input type="text" id="daytime" readonly />
+          </div>
+        </div>
+      </header>
+      <main>
+        <div>
+          <form>
+            <textarea id="ndungck" readonly>
+Tên chủ tài khoản: PHAN VAN HUY
+Số tài khoản: 0978410127
+Ngân hàng: MB Bank
+Số tiền: 
+Thời gian giao dịch: 
+Nội dung giao dịch: DANG THANH HANG chuyen khoan
+                    </textarea
+            >
+          </form>
+        </div>
+      </main>
+      <footer>
+        <img src="./images/logo.png" alt="Logo MB Bank" id="footer-logo" />
+        <div class="icon-container">
+          <div>
+            <i class="fa-solid fa-share"></i>
+            <p>Chia sẻ</p>
+          </div>
+          <div>
+            <i class="fa-solid fa-image"></i>
+            <p>Lưu ảnh</p>
+          </div>
+          <div>
+            <i class="fa-solid fa-bookmark"></i>
+            <p>Lưu mẫu</p>
+          </div>
+        </div>
+        <button id="createBill">Tạo Bill</button>
+      </footer>
+    </div>
+
+    <script>
+      function formatCurrency(input) {
+        let value = input.value.replace(/\D/g, "");
+        input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+      function updateDateTime() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        const day = now.getDate().toString().padStart(2, "0");
+        const month = (now.getMonth() + 1).toString().padStart(2, "0");
+        const year = now.getFullYear();
+        document.getElementById(
+          "daytime"
+        ).value = `${hours}:${minutes} - ${day}/${month}/${year}`;
+      }
+
+      document
+        .getElementById("createBill")
+        .addEventListener("click", function (event) {
+          event.preventDefault();
+          const cost = document.getElementById("cost").value;
+          const datetime = document.getElementById("daytime").value;
+          document.getElementById("ndungck").value = `
+Tên chủ tài khoản: NGUYEN THANH TUNG
+Số tài khoản: 123456789
+Ngân hàng: MB Bank
+Số tiền: ${cost} VND
+Thời gian giao dịch: ${datetime}`;
+
+          const confirmDownload = confirm("Bạn có muốn tải ảnh về máy không?");
+
+          if (confirmDownload) {
+            document.getElementById("createBill").style.display = "none";
+            window.print();
+          } else {
+            location.reload();
+          }
+        });
+
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+    </script>
+  </body>
+</html>
