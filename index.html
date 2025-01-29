@@ -9,24 +9,20 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <title>MB Bank</title>
-    <style>
-      @media print {
-        #createBill {
-          display: none;
-        }
-
-        body {
-          background-color: #f0f0f0;
-          background-image: url("./images/background.jpg");
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
-        }
-      }
-    </style>
   </head>
   <body>
+    <div id="overlay"></div>
+    <div id="formContainer">
+      <h3>Nhập thông tin chuyển khoản</h3>
+      <input type="text" id="accountName" placeholder="Tên chủ tài khoản" />
+      <input type="text" id="accountNumber" placeholder="Số tài khoản" />
+      <input type="text" id="bankName" placeholder="Ngân hàng" />
+      <button id="confirmBill">Xác nhận</button>
+      <button onclick="closeForm()">Hủy</button>
+    </div>
+
     <div id="background">
       <header>
         <div id="logock">
@@ -47,12 +43,12 @@
         <div>
           <form>
             <textarea id="ndungck" readonly>
-Tên chủ tài khoản: PHAN VAN HUY
-Số tài khoản: 0978410127
-Ngân hàng: MB Bank
+Tên chủ tài khoản: 
+Số tài khoản: 
+Ngân hàng: 
 Số tiền: 
 Thời gian giao dịch: 
-Nội dung giao dịch: DANG THANH HANG chuyen khoan
+Nội dung giao dịch: 
                     </textarea
             >
           </form>
@@ -61,15 +57,15 @@ Nội dung giao dịch: DANG THANH HANG chuyen khoan
       <footer>
         <img src="./images/logo.png" alt="Logo MB Bank" id="footer-logo" />
         <div class="icon-container">
-          <div>
+          <div id="shareBill">
             <i class="fa-solid fa-share"></i>
             <p>Chia sẻ</p>
           </div>
-          <div>
+          <div id="saveImage">
             <i class="fa-solid fa-image"></i>
             <p>Lưu ảnh</p>
           </div>
-          <div>
+          <div id="saveTemplate">
             <i class="fa-solid fa-bookmark"></i>
             <p>Lưu mẫu</p>
           </div>
@@ -96,28 +92,50 @@ Nội dung giao dịch: DANG THANH HANG chuyen khoan
         ).value = `${hours}:${minutes} - ${day}/${month}/${year}`;
       }
 
-      document
-        .getElementById("createBill")
-        .addEventListener("click", function (event) {
-          event.preventDefault();
-          const cost = document.getElementById("cost").value;
-          const datetime = document.getElementById("daytime").value;
-          document.getElementById("ndungck").value = `
-Tên chủ tài khoản: NGUYEN THANH TUNG
-Số tài khoản: 123456789
-Ngân hàng: MB Bank
+      document.getElementById("createBill").addEventListener("click", function () {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("formContainer").style.display = "block";
+      });
+
+      function closeForm() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("formContainer").style.display = "none";
+      }
+
+      document.getElementById("confirmBill").addEventListener("click", function () {
+        const accountName = document.getElementById("accountName").value;
+        const accountNumber = document.getElementById("accountNumber").value;
+        const bankName = document.getElementById("bankName").value;
+        const cost = document.getElementById("cost").value;
+        const datetime = document.getElementById("daytime").value;
+
+        document.getElementById("ndungck").value = `
+Tên chủ tài khoản: ${accountName}
+Số tài khoản: ${accountNumber}
+Ngân hàng: ${bankName}
 Số tiền: ${cost} VND
-Thời gian giao dịch: ${datetime}`;
+Thời gian giao dịch: ${datetime}
+Nội dung giao dịch: ${accountName} chuyển khoản`;
 
-          const confirmDownload = confirm("Bạn có muốn tải ảnh về máy không?");
+        document.getElementById("createBill").style.display = "none"; // Ẩn nút "Tạo Bill"
+        closeForm();
+      });
 
-          if (confirmDownload) {
-            document.getElementById("createBill").style.display = "none";
-            window.print();
-          } else {
-            location.reload();
-          }
+      function saveAsImage() {
+        html2canvas(document.getElementById("background")).then((canvas) => {
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/png");
+          link.download = "bill.png";
+          link.click();
         });
+      }
+
+      document.getElementById("saveImage").addEventListener("click", saveAsImage);
+      document.getElementById("shareBill").addEventListener("click", saveAsImage);
+
+      document.getElementById("saveTemplate").addEventListener("click", function () {
+        alert("Mẫu giao dịch đã được lưu!");
+      });
 
       updateDateTime();
       setInterval(updateDateTime, 60000);
