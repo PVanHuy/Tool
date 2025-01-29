@@ -19,6 +19,7 @@
       <input type="text" id="accountName" placeholder="Tên chủ tài khoản" />
       <input type="text" id="accountNumber" placeholder="Số tài khoản" />
       <input type="text" id="bankName" placeholder="Ngân hàng" />
+      <input type="text" id="senderName" placeholder="Tên người chuyển khoản" />
       <button id="confirmBill">Xác nhận</button>
       <button id="cancleBill" onclick="closeForm()">Hủy</button>
     </div>
@@ -92,34 +93,39 @@ Nội dung giao dịch:
         ).value = `${hours}:${minutes} - ${day}/${month}/${year}`;
       }
 
-      document.getElementById("createBill").addEventListener("click", function () {
-        document.getElementById("overlay").style.display = "block";
-        document.getElementById("formContainer").style.display = "block";
-      });
+      document
+        .getElementById("createBill")
+        .addEventListener("click", function () {
+          document.getElementById("overlay").style.display = "block";
+          document.getElementById("formContainer").style.display = "block";
+        });
 
       function closeForm() {
         document.getElementById("overlay").style.display = "none";
         document.getElementById("formContainer").style.display = "none";
       }
 
-      document.getElementById("confirmBill").addEventListener("click", function () {
-        const accountName = document.getElementById("accountName").value;
-        const accountNumber = document.getElementById("accountNumber").value;
-        const bankName = document.getElementById("bankName").value;
-        const cost = document.getElementById("cost").value;
-        const datetime = document.getElementById("daytime").value;
+      document
+        .getElementById("confirmBill")
+        .addEventListener("click", function () {
+          const senderName = document.getElementById("senderName").value; // Lấy tên người chuyển khoản
+          const accountName = document.getElementById("accountName").value;
+          const accountNumber = document.getElementById("accountNumber").value;
+          const bankName = document.getElementById("bankName").value;
+          const cost = document.getElementById("cost").value;
+          const datetime = document.getElementById("daytime").value;
 
-        document.getElementById("ndungck").value = `
+          document.getElementById("ndungck").value = `
 Tên chủ tài khoản: ${accountName}
 Số tài khoản: ${accountNumber}
 Ngân hàng: ${bankName}
 Số tiền: ${cost} VND
 Thời gian giao dịch: ${datetime}
-Nội dung giao dịch: Phan Van Huy chuyển khoản`;
+Nội dung giao dịch: ${senderName} chuyển khoản`;
 
-        document.getElementById("createBill").style.display = "none"; // Ẩn nút "Tạo Bill"
-        closeForm();
-      });
+          document.getElementById("createBill").style.display = "none"; // Ẩn nút "Tạo Bill"
+          closeForm();
+        });
 
       function saveAsImage() {
         html2canvas(document.getElementById("background")).then((canvas) => {
@@ -130,12 +136,18 @@ Nội dung giao dịch: Phan Van Huy chuyển khoản`;
         });
       }
 
-      document.getElementById("saveImage").addEventListener("click", saveAsImage);
-      document.getElementById("shareBill").addEventListener("click", saveAsImage);
+      document
+        .getElementById("saveImage")
+        .addEventListener("click", saveAsImage);
+      document
+        .getElementById("shareBill")
+        .addEventListener("click", saveAsImage);
 
-      document.getElementById("saveTemplate").addEventListener("click", function () {
-        alert("Mẫu giao dịch đã được lưu!");
-      });
+      document
+        .getElementById("saveTemplate")
+        .addEventListener("click", function () {
+          alert("Mẫu giao dịch đã được lưu!");
+        });
 
       updateDateTime();
       setInterval(updateDateTime, 60000);
